@@ -3,7 +3,13 @@
     
     function makeDir($path)
     {
-       return is_dir($path) || mkdir($path);
+       if ( is_dir($path) ) {
+           return 1;
+       } else {
+           mkdir($path);
+           return 1;
+       }
+       return 0;
     }
     
     function createFile($path, $initial_content)
@@ -13,10 +19,15 @@
        fclose($file);
     }
     
+    $new_blog_path = getenv("DOCUMENT_ROOT")."Blog-Posts";
     $new_post_path = getenv("DOCUMENT_ROOT")."Blog-Posts/".$blog_post_number;
-    if(makeDir($new_post_path)) {
-        echo "Blog post #".$blog_post_number. " is being initialized @".$new_post_path."\n";
+    
+    if(makeDir($new_blog_path)) {
+        if (makeDir($new_post_path)) {
+            echo "Blog post #".$blog_post_number. " is being initialized @".$new_post_path."\n";
+        }
     }
+    
     echo "Setting up enviornment... \n";
     
     $title_path = $new_post_path."/title.txt";
