@@ -4,6 +4,7 @@
     
     $blog_post_number = $argv[1];
     $api_key = $argv[2];
+    $wordpress_site = $argv[3];
 
     echo "Processing blog post #".$blog_post_number."...\n";
     
@@ -27,7 +28,7 @@
 
     /* Set up post */
     curl_setopt_array($curl, array(
-                                   CURLOPT_URL => "https://public-api.wordpress.com/rest/v1.2/sites/economyclass.blog/posts/new/",
+                                   CURLOPT_URL => "https://public-api.wordpress.com/rest/v1.2/sites/". $wordpress_site."/posts/new/",
                                    CURLOPT_RETURNTRANSFER => true,
                                    CURLOPT_ENCODING => "",
                                    CURLOPT_MAXREDIRS => 10,
@@ -51,7 +52,7 @@
     if ($err) {
         echo "cURL Error #:" . $err;
     } else {
-        echo "The post was successfully created! 👏 👍\n Check it out @ www.economyclass.blog 🖥\n";
+        echo "The post was successfully created! 👏 👍\n Check it out @ www.".$wordpress_site" 🖥\n";
         // echo $response;
     }
 

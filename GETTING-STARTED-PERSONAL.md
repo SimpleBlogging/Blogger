@@ -25,9 +25,12 @@ Done
 
 1. Head into workflow editor
 2. Open the `Secrets` tab
-3. Added a new Secret called API_KEY and set the value to your WordPress API KEY
-4. Open the `bitrise.yaml`
-5. Make the `yaml` look like:
+3. Add a new Secret called `API_KEY` and set the value to your WordPress API KEY
+4. Add another new Secret called `WEBSITE` and set the value to your WordPress website address 
+
+	> Example: www.mywebsite.com would be mywebsite.com
+5. Open the `bitrise.yaml`
+6. Make the `yaml` look like:
 
 ```
 ---
@@ -48,7 +51,7 @@ workflows:
     - script-runner@0.9.3:
         inputs:
         - runner: php
-        - file_path: "$BITRISE_SOURCE_DIR/poster.php $BITRISE_GIT_TAG $API_KEY"
+        - file_path: "$BITRISE_SOURCE_DIR/poster.php $BITRISE_GIT_TAG $API_KEY $WEBSITE"
     - script@1.1.5:
         title: Do anything with Script step
         inputs:
@@ -68,7 +71,7 @@ workflows:
             echo $BITRISE_SOURCE_DIR
             echo $BITRISE_SOURCE_DIR/README.md
 
-            php $BITRISE_SOURCE_DIR/poster.php $BITRISE_GIT_TAG $API_KEY
+            php $BITRISE_SOURCE_DIR/poster.php $BITRISE_GIT_TAG $API_KEY $WEBSITE
         is_always_run: true
     - deploy-to-bitrise-io@1.3.12: {}
 
