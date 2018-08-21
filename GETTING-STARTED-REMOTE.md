@@ -49,7 +49,7 @@ workflows:
             envman add --key TAG --value "${BITRISE_GIT_TAG}"
             envman add --key SITE --value "${WEBSITE}"
 
-            php /Public/poster.php $BITRISE_GIT_TAG $API_KEY $WEBSITE;
+            php Public/poster.php $BITRISE_GIT_TAG $API_KEY $WEBSITE;
     - deploy-to-bitrise-io@1.3.12: {}
 
 ```

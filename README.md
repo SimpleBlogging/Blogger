@@ -1,12 +1,26 @@
 # Blogger
+###### (logo coming soon...)
+--
 
 
+#### Current Feature Set 
 
 |         | Features  |
-----------|-----------------
+|---------|-----------|
 ⚡️| Quick blog releases through automation
-🔬| Semantic analysis
-🔠| Grammer Checker
+
+
+#### Upcoming Feature Set
+
+|         | Features  | Status |
+|---------|-----------|--------|
+<img src="https://openclipart.org/image/800px/svg_to_png/17031/jean-victor-balin-icon-puzzle-yellow.png" width="20" height="20"> | Modular | In-Progess
+🔬| Semantic Analyzer | In-Progess
+🔠| Grammar Checker | In-Progess
+<img src="https://maxcdn.icons8.com/Color/PNG/512/Data/workflow-512.png" width="20" height="20"> | Workflow File | Not Started
+💾| Updates Based on Cache | Not Started
+📡| Multiple Platforms | Not Started
+
 
 
 ## Getting Started 
@@ -26,3 +40,7 @@ Once these are setup follow the [Getting started guide for personal use](https:/
 ### Contributing
 
 > Contributors should follow the personal setup guide for testing purposes.
+
+
+
+
