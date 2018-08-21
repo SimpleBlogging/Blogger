@@ -19,8 +19,8 @@
        fclose($file);
     }
     
-    $new_blog_path = getenv("DOCUMENT_ROOT")."Blog-Posts";
-    $new_post_path = getenv("DOCUMENT_ROOT")."Blog-Posts/".$blog_post_number;
+    $new_blog_path = "../Blog-Posts";
+    $new_post_path = "../Blog-Posts/".$blog_post_number;
     
     if(makeDir($new_blog_path)) {
         if (makeDir($new_post_path)) {

@@ -2,19 +2,34 @@
     
     $curl = curl_init();
     
+    $path_to_blogpost = findBlogPostPath();
     $blog_post_number = $argv[1];
     $api_key = $argv[2];
     $wordpress_site = $argv[3];
     
     
+    function findBlogPostPath() {
+        if ( !is_dir("../Blog-Posts/") ) {
+            if ( !is_dir("./Blog-Posts/") ) {
+                echo "Could not find Blog-Posts directory";
+                return 2;
+            } else {
+                return "./Blog-Posts/";
+            }
+        } else {
+            return "../Blog-Posts/";
+        }
+    }
+    
+    
     function makeDir($path) {
-       if ( is_dir($path) ) {
-           return 1;
-       } else {
-           mkdir($path);
-           return 1;
-       }
-       return 0;
+        if ( is_dir($path) ) {
+            return 1;
+        } else {
+            mkdir($path);
+            return 1;
+        }
+        return 0;
     }
     
     function createFile($path, $initial_content) {
@@ -34,7 +49,7 @@
         $API  = rtrim(fgets(STDIN));
         echo "Great!\n";
         echo "Continuing publish.....!\n";
-
+        
         makeDir(getenv("DOCUMENT_ROOT")."Config");
         
         $new_path = getenv("DOCUMENT_ROOT")."Config/config.php";
@@ -56,11 +71,10 @@
             setUpConfig();
         }
     }
-
     
     if ( $blog_post_number == NULL ) {
         echo "You must provide a blog post number as the first argument\n";
-        return;
+        return 2;
     }
     
     if ( $api_key == NULL || $wordpress_site == NULL ) {
@@ -70,20 +84,21 @@
     
     if ( $api_key == NULL || $wordpress_site == NULL ) {
         echo "Missing API KEY and WordPress Site Address in Config file\n";
+        return 2;
     }
     
     echo "Processing blog post #".$blog_post_number."...\n";
     
-    if ( !is_dir("./Blog-Posts/".$blog_post_number) ) {
+    if ( !is_dir($path_to_blogpost."/".$blog_post_number) ) {
         echo "This blog post has not been created yet\n Type php new.php ".$blog_post_number." to get started";
-        return;
+        return 2;
     }
     
     /* Get blog post data */
-    $title = file_get_contents("./Blog-Posts/".$blog_post_number."/title.txt");
-    $content = file_get_contents("./Blog-Posts/".$blog_post_number."/content.html");
-    $tags = file_get_contents("./Blog-Posts/".$blog_post_number."/tags.txt");
-    $categories = file_get_contents("./Blog-Posts/".$blog_post_number."/categories.txt");
+    $title = file_get_contents($path_to_blogpost."/".$blog_post_number."/title.txt");
+    $content = file_get_contents($path_to_blogpost."/".$blog_post_number."/content.html");
+    $tags = file_get_contents($path_to_blogpost."/".$blog_post_number."/tags.txt");
+    $categories = file_get_contents($path_to_blogpost."/".$blog_post_number."/categories.txt");
     
     
     /* Format */
@@ -129,5 +144,6 @@
     } else {
         echo "The post was successfully created! 👏 👍";
     }
+    
     
 
