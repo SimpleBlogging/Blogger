@@ -5,7 +5,7 @@
     $blog_post_number = $argv[1];
     $api_key = $argv[2];
     $wordpress_site = $argv[3];
-
+    
     echo "Processing blog post #".$blog_post_number."...\n";
     
     /* Get blog post data */
@@ -13,7 +13,7 @@
     $content = file_get_contents("./Blog-Posts/".$blog_post_number."/content.html");
     $tags       = file_get_contents("./Blog-Posts/".$blog_post_number."/tags.txt");
     $categories = file_get_contents("./Blog-Posts/".$blog_post_number."/categories.txt");
-
+    
     /* Format */
     $data = array('title'=>$title,
                   'content'=>$content,
@@ -25,7 +25,10 @@
     /* Convert */
     $postfields = http_build_query($data);
     
-
+    
+    echo "https://public-api.wordpress.com/rest/v1.2/sites/".$wordpress_site."/posts/new/\n";
+    echo "authorization: Bearer ".$api_key."\n";
+    
     /* Set up post */
     curl_setopt_array($curl, array(
                                    CURLOPT_URL => "https://public-api.wordpress.com/rest/v1.2/sites/".$wordpress_site."/posts/new/",
@@ -53,6 +56,7 @@
         echo "cURL Error #:" . $err;
     } else {
         echo "The post was successfully created! 👏 👍\n Check it out @ www.".$wordpress_site." 🖥\n";
-        // echo $response;
+            // echo $response;
     }
+    
 
