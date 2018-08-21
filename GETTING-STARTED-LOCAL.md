@@ -1,4 +1,4 @@
-#Getting Started (Local)
+# Getting Started (Local)
 
 > Requires `php` to be installed
 > If you are unsure if your computer has `php` run: `php -v`
