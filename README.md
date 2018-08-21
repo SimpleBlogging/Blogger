@@ -21,7 +21,7 @@ There are a few requirments to get the Blogger up and running
 4. [Bitrise](https://www.bitrise.io) 
 <img src="https://avatars1.githubusercontent.com/u/7174390?v=3" width="20" height="20"> account attached to that repo
 
-Once these are setup follow the [Getting started guide for personal use](https://github.com/SimpleBlogging/Blogger/blob/master/GETTING-STARTED-PERSONAL.md)
+Once these are setup follow the [Getting started guide for personal use](https://github.com/SimpleBlogging/Blogger/blob/master/GETTING-STARTED-LOCAL.md)
 
 ### Contributing
 
