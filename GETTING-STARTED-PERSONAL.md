@@ -39,41 +39,40 @@ default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 project_type: other
 trigger_map:
 - pull_request_source_branch: "*"
-  workflow: primary
+workflow: primary
 - tag: "*"
-  workflow: primary
+workflow: primary
 workflows:
-  primary:
-    steps:
-    - activate-ssh-key@3.1.1:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@4.0.11: {}
-    - script-runner@0.9.3:
-        inputs:
-        - runner: php
-        - file_path: "$BITRISE_SOURCE_DIR/poster.php $BITRISE_GIT_TAG $API_KEY $WEBSITE"
-    - script@1.1.5:
-        title: Do anything with Script step
-        inputs:
-        - is_debug: 'yes'
-        - runner_bin: php
-        - content: |-
-            #!/usr/bin/php
-            # fail if any commands fails
-            set -e
-            # debug log
-            set -x
+primary:
+steps:
+- activate-ssh-key@3.1.1:
+run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+- git-clone@4.0.11: {}
+- script@1.1.5:
+title: Do anything with Script step
+inputs:
+- is_debug: 'yes'
+- runner_bin: php
+- content: |-
+#!/usr/bin/php
+# fail if any commands fails
+set -e
+# debug log
+set -x
 
-            # write your script here
-            echo "Bitrise... Building..."
-            echo $BITRISE_GIT_TAG
-            echo $BITRISE_GIT_MESSAGE
-            echo $BITRISE_SOURCE_DIR
-            echo $BITRISE_SOURCE_DIR/README.md
+# write your script here
+echo "Bitrise... Building..."
+echo $BITRISE_GIT_TAG
+echo $BITRISE_GIT_MESSAGE
+echo $BITRISE_SOURCE_DIR
+echo $BITRISE_SOURCE_DIR/README.md
 
-            php $BITRISE_SOURCE_DIR/poster.php $BITRISE_GIT_TAG $API_KEY $WEBSITE
-        is_always_run: true
-    - deploy-to-bitrise-io@1.3.12: {}
+php $BITRISE_SOURCE_DIR/poster.php $BITRISE_GIT_TAG $API_KEY $WEBSITE
+is_always_run: true
+- deploy-to-bitrise-io@1.3.12: {}
+meta:
+bitrise.io:
+stack: osx-xcode-9.4.x
 
 ```
 
