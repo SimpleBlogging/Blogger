@@ -1,0 +1,1 @@
+<?php return array( 'API_KEY' =>gmail.com, 'WEBSITE' =>1234, );
