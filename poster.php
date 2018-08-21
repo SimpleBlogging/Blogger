@@ -55,9 +55,7 @@
     if ($err) {
         echo "cURL Error #:" . $err;
     } else {
-        echo "The post was successfully created! 👏 👍\n Check it out @ www.";
-        echo $wordpress_site;
-        echo " 🖥\n";
+        echo "The post was successfully created! 👏 👍";
     }
     
 
