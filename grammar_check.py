@@ -1,19 +1,30 @@
-import requests
 import sys
-import json
+import os
+import atd
 import html2text
+import itertools
 
 path = "./Blog-Posts/{0}/content.html".format(sys.argv[1])
 html = open(path).read()
 
-url = "http://api.meaningcloud.com/sentiment-2.1"
+h2tHandler = html2text.HTML2Text()
 
-payload = "key=97f69c4208be095a78e3bb39aa9f2235&lang=en&url=https://raw.githubusercontent.com/Huddie/EconomyClass/master/Blog-Posts/1/content.html&doc=html"
-headers = {'content-type': 'application/x-www-form-urlencoded'}
+text = h2tHandler.handle(html)
 
-response = requests.request("POST", url, data=payload, headers=headers)
+atd.setDefaultKey("eadler-422oapjffj")
+metrics = atd.stats(text)
+print([str(m) for m in metrics])
 
-print(response.text)
+errors = atd.checkDocument("Looking too the water. Fixing your writing typoss.")
+print(errors)
+for error in errors:
+  for item in error:
+    print(item)
+	# print("%s error for: %s **%s**" % (error.type, error.precontext, error.string))
+	# print("some suggestions: %s" % (", ".join(error.suggestions),))
 
 
-# Text or Email stats on every push
+
+
+
+
