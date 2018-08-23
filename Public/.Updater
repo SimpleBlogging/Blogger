@@ -1,0 +1,31 @@
+#!/bin/bash
+
+for i in "$@"
+do
+case $i in
+    -u=*|--url=*)
+    HREF="${i#*=}"
+    shift # past argument=value
+    ;;
+    -o=*|--outpath=*)
+    OUTPATH="${i#*=}"
+    shift # past argument=value
+    ;;
+    --default)
+    DEFAULT=YES
+    shift # past argument with no value
+    ;;
+    *)
+          # unknown option
+    ;;
+esac
+done
+echo "HREF    = ${HREF}"
+echo "OUTPATH = ${OUTPATH}"
+
+wget -O "${OUTPATH}" "${HREF}"
+
+if [[ -n $1 ]]; then
+    echo "Last line of file specified as non-opt/last argument:"
+    tail -1 $1
+fi
