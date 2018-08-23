@@ -1,0 +1,47 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+GRN='\033[0;32m'
+BLU='\033[0;34m'
+PUR='\033[1;35m'
+NC='\033[0m'
+
+echo "\n"
+echo "${GRN}W\c"
+sleep .2
+echo "E\c"
+sleep .2
+echo "L\c"
+sleep .2
+echo "C\c"
+sleep .2
+echo "O\c"
+sleep .2
+echo "M\c"
+sleep .2
+echo  "E"
+sleep .2
+
+
+echo "${NC}\n\nThanks for trying out Simple Blogger ❗️❕❗️"
+echo "If your ready to get set up let us know!${GRN}\n"
+
+read  -n 1 -p "Press anything to continue:" mainmenuinput
+
+echo "\n${NC}Awesome!!"
+sleep .5
+echo "Or should I say.. ${RED}Awesome ❗️❕❗️❕${NC}\n"
+sleep .5
+echo "Emojis rule!"
+sleep .5
+echo "Alright. Time to get down to some ${PUR}important files${NC}. Here we go"
+sleep .2
+echo "🤖 Boop Beep Bop 📡 🛰\n\n"
+sleep 1
+
+sh Workflow update
+
+echo "${GRN}SWEEEEET${NC} 🍬 🍭"
+
+
+

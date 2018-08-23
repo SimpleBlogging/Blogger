@@ -1,0 +1,114 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+GRN='\033[0;32m'
+BLU='\033[0;34m'
+PUR='\033[1;35m'
+NC='\033[0m'
+
+echo "\n"
+echo "Time to get a WordPress API Key"
+echo "I'll walk you through this, don't worry!\n"
+
+echo "First of all, do you have an API KEY already? We could just skip this if you do!"
+
+echo "Do you already have an API KEY? [Y/N] \c"
+
+read yn </dev/tty
+  case $yn in
+  [Yy]* ) exit;;
+  [Nn]* ) break;;
+  * ) echo "Please run again and answer yes or no.";;
+  esac
+
+
+echo "\n\nNo API KEY, No Problem. You'll have one soon enough!"
+echo "If your ready to get get started let me know!${GRN}\n"
+
+echo "Press anything to continue\c"
+read yn </dev/tty
+
+echo "\n${RED}Awesome ❗️❕❗️❕\n${NC}"
+sleep .5
+echo "${PUR}Step 1]${NC} follow this link to create an application: https://developer.wordpress.com/apps/new/"
+echo "*Protip: Hold Cmd and Option and click the link above to open it\n"
+
+echo "${GRN}Set the Redirect URL to: ${BLU}http://localhost:8080${NC}\n"
+
+sleep 1
+echo "${NC}I'll wait for you to get that set up${GRN}"
+
+echo "Press anything to continue\c"
+read yn </dev/tty
+
+echo "\n${PUR}Step 2]${NC} Time to get the important info. We're going to need:\n"
+echo "☐ CLIENT_ID"
+echo "☐ CLIENT_SECRET\n"
+
+echo "CLIENT_ID [Hit enter when done]: \c"
+read ci </dev/tty
+
+client_id="$ci"
+
+echo "\n ☑️  CLIENT_ID = $client_id\n"
+
+echo "CLIENT_SECRET [Hit enter when done]: \c"
+read csi </dev/tty
+
+client_secret="$csi"
+
+echo "\n ☑️  CLIENT_SECRET = ***************\n"
+
+echo "${NC}\n\n${PUR}Step 3]${NC} Authorization\n"
+echo "Enter this URL in the Browser: https://public-api.wordpress.com/oauth2/authorize?client_id=$client_id&redirect_uri=http://localhost:8080&response_type=code\n"
+
+echo "Choose your blog and hit authorize"
+echo "${RED}*That website may not show up.. Thats okay!${GRN}\n"
+
+echo "Press anything to continue \c"
+read yn </dev/tty
+
+echo "${NC}The URL should look like http://localhost:8080/?code={CODE}&state"
+echo "We'll need that code"
+
+echo "Type the code and press enter: \c"
+read c </dev/tty
+
+code="$c"
+
+echo "\n${PUR}Step 4]${NC} Authentication. Please wait while I do this for you.."
+
+curl --data "client_id=$client_id&redirect_uri=http://localhost:8080&client_secret=$client_secret&code=$code&grant_type=authorization_code" https://public-api.wordpress.com/oauth2/token/ >> ./.response.txt
+
+line=$(head -n 1 ./.response.txt)
+key=$(sed 's/^.*{"access_token":"//; s/\",.*$//' <<< "$line")
+echo -e "\n${GRN}You API KEY is: $key ${NC}"
+
+echo "\n${PUR}Step 5]${NC} Last step!"
+echo "\nWe need the URL of your websites homepage:"
+
+echo "Website Homepage Address: \c"
+read web </dev/tty
+
+website="$web"
+
+echo "\nGot it!\n"
+echo "👷‍♂️ Building config"
+echo "👷‍♀️ Building config\n"
+
+echo "<?php return array( 'API_KEY' =>'$key', 'WEBSITE' =>'$web');" >> ./.config.php
+
+echo "\n⚙️  Finished Building Config\n"
+echo "\n🛀  Cleaning up\n"
+
+#rm -f ./.response.txt
+
+echo "${GRN}SWEEEEET${NC} 🍬 🍭\n\n"
+
+echo "-- All set  ✅\n"
+
+
+
+
+
+

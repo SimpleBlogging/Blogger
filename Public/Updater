@@ -1,5 +1,8 @@
 #!/bin/bash
 
+GRN='\033[0;32m'
+NC='\033[0m' # No Color
+
 for i in "$@"
 do
 case $i in
@@ -20,10 +23,12 @@ case $i in
     ;;
 esac
 done
-echo "HREF    = ${HREF}"
+echo "\nHREF = ${HREF}"
 echo "OUTPATH = ${OUTPATH}"
 
 wget -O "${OUTPATH}" "${HREF}"
+
+echo "${GRN}Download Complete\n${NC}"
 
 if [[ -n $1 ]]; then
     echo "Last line of file specified as non-opt/last argument:"

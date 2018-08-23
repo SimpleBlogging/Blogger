@@ -49,10 +49,8 @@
         $API  = rtrim(fgets(STDIN));
         echo "Great!\n";
         echo "Continuing publish.....!\n";
-        
-        makeDir(getenv("DOCUMENT_ROOT")."Config");
-        
-        $new_path = getenv("DOCUMENT_ROOT")."Config/config.php";
+      
+        $new_path = ".config.php";
         $initial_content = "<?php return array( 'API_KEY' =>'".$API."', 'WEBSITE' =>'".$WEB."');";
         
         createFile($new_path, $initial_content);
@@ -60,8 +58,8 @@
     }
     
     function setArgumentFromConfig() {
-        if ( file_exists("Config/config.php") ) {
-            $configs = include('Config/config.php');
+        if ( file_exists(".config.php") ) {
+            $configs = include('.config.php');
             $GLOBALS[api_key] = $configs["API_KEY"];
             $GLOBALS[wordpress_site] = $configs["WEBSITE"];
             echo "API: ".$api_key."\n";
